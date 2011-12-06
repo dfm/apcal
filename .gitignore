@@ -1,0 +1,8 @@
+*.py[co]
+*.hdf5
+.*sw[pom]
+*.so
+.DS_Store
+build
+
+data
