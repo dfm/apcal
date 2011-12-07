@@ -1,7 +1,7 @@
 # coding: utf-8
 import pylab as pl
 import pyfits
-import apcal.calmodel as calmodel
+import apcal.model as model
 import numpy as np
 import apcal.conversions as conversions
 
@@ -11,7 +11,8 @@ f0 = np.sum(ivar*f, axis=1)/np.sum(ivar, axis=1)
 inds = np.sum(ivar, axis=0) > 0
 f = f[:,inds]
 ivar = ivar[:,inds]
-model = calmodel.PatchProbModel(f,ivar, f0)
+model = model.APCalModel(f,ivar, f0)
+
 # model.freeze_nuisance()
 model.calibrate()
 

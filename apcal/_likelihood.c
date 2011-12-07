@@ -89,8 +89,8 @@ PatchModel *PatchModel_init(PyObject *model)
     PatchModel *self = malloc(sizeof(PatchModel));
 
     // parse the data/model classes
-    self->df = _fromNPYArray(model,"_f");
-    self->di = _fromNPYArray(model,"_ivar_f");
+    self->df = _fromNPYArray(model,"fobs");
+    self->di = _fromNPYArray(model,"ivar");
     if (self->df == NULL || self->di == NULL)
         return NULL;
 
@@ -100,8 +100,8 @@ PatchModel *PatchModel_init(PyObject *model)
     self->nstars = PyArray_DIMS(self->df)[0];
 
     // parse the data/model classes
-    self->mz = _fromNPYArray(model,"_f0");
-    self->mf = _fromNPYArray(model,"_fstar");
+    self->mz = _fromNPYArray(model,"f0");
+    self->mf = _fromNPYArray(model,"fs");
     if (self->mz == NULL || self->mf == NULL)
         return NULL;
 
@@ -110,12 +110,12 @@ PatchModel *PatchModel_init(PyObject *model)
 
     // model parameters
     int info = 0;
-    self->jitterabs2 = _fromPyDouble(model,"_jitterabs2", &info);
-    self->jitterrel2 = _fromPyDouble(model,"_jitterrel2", &info);
-    self->Q2         = _fromPyDouble(model,"_Q2", &info);
-    self->Pvar       = _fromPyDouble(model,"_pvar", &info);
-    self->sigbad2    = _fromPyDouble(model,"_sigbad2", &info);
-    self->Pbad       = _fromPyDouble(model,"_pbad", &info);
+    self->jitterabs2 = _fromPyDouble(model,"jitterabs2", &info);
+    self->jitterrel2 = _fromPyDouble(model,"jitterrel2", &info);
+    self->Q2         = _fromPyDouble(model,"Svar2", &info);
+    self->Pvar       = _fromPyDouble(model,"Qvar", &info);
+    self->sigbad2    = _fromPyDouble(model,"Sbad2", &info);
+    self->Pbad       = _fromPyDouble(model,"Qbad", &info);
     if (info == 1)
         return NULL;
 
